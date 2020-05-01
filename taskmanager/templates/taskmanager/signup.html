@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Signup page</title>
+</head>
+<body>
+
+{% if envoi %} Votre message a bien été envoyé {% endif %}
+
+<form method="post" action="{%  url "signup" %}">
+    {% csrf_token %} <! This is to prevent hackers to access unauthorized data>
+    {{ form.as_p }} <! I can add css  stuff to make it more beautiful or write the form manually>
+    <input type="submit" value="Créer mon compte"/>
+</form>
+
+
+</body>
+</html>
