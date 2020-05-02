@@ -1,9 +1,6 @@
 from django import forms
 
 
-# from django.core.validators import MinLengthValidator
-
-
 class ProfileForm(forms.Form):
     first_name = forms.CharField(label="Prénom", max_length=60, required=True)
     # Last_name isn't required
