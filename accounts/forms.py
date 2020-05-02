@@ -1,4 +1,6 @@
 from django import forms
+
+
 # from django.core.validators import MinLengthValidator
 
 
@@ -13,4 +15,5 @@ class ProfileForm(forms.Form):
     password = forms.CharField(label="Mot de passe", widget=forms.PasswordInput, required=True)
     email = forms.CharField(label="Adresse email", widget=forms.EmailInput, required=True)
 
-    # add groups and avatar later
+    # Avatar isn't a required field because system will assign a default profile picture in case the user didn't
+    avatar = forms.ImageField(label="Image de profil", required=False)

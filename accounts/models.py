@@ -3,12 +3,14 @@ from django.contrib.auth.models import User
 
 
 class Profile(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE)
 
-    #must add groups and avatar later
+    # Rename uploaded profile picture to a more standard one
+    def rename_file(self, filename):
+        return "photos/{}_{}.jpg".format(self.user_id, self.user.username)
+
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+    avatar = models.ImageField(default="photos/default.jpg", upload_to=rename_file)
 
     def __str__(self):
         # Should put first_name field mandatory
         return "Profile de {0}".format(self.user.first_name)
-
-
