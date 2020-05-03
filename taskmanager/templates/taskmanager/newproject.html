@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>New project</title>
+    {% load static %}
+    <script src="{% static "jquery-2.0.0.min.js" %}"></script>
+    <script src="{% static "ajax.js" %}" %}></script>
+</head>
+<body>
+<h2>Trying the search thing</h2>
+<h3>Search</h3>
+<table>
+    <tr>
+        <th>
+            Added usernames
+        </th>
+    </tr>
+</table>
+{% csrf_token %}
+<input type="text" id="search" name="search" />
+<ul id="search-results">
+
+</ul>
+
+</body>
+
+
+</html>

@@ -42,5 +42,4 @@ def signup(request):
         profile = Profile.objects.create(user=user, avatar=avatar)
         envoi = True
 
-
     return render(request, 'accounts/signup.html', locals())

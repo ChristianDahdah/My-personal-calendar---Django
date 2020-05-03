@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <title>Projects</title>
+</head>
+
+<body>
+{% for project in projects %}
+    <h3 href="{{ project.id }}">{{ project.name }}</h3>
+{% empty %}
+    <h3>You have no projects</h3>
+{% endfor %}
+</body>
+</html>

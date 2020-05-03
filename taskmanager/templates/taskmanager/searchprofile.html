@@ -1,0 +1,91 @@
+<html>
+
+<head>
+    <style>
+
+        .autocomplete-results {
+            position: absolute;
+            z-index: 0;
+            width: 30%;
+            max-height: 10em;
+            overflow-y: auto;
+            font-size: 13px;
+            list-style: none;
+            background: #ffffff;
+            border-radius: 3px;
+            box-shadow: 0 0 5px rgba(27, 31, 35, .3);
+        }
+
+
+        li {
+            font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Helvetica, Arial, sans-serif, Apple Color Emoji, Segoe UI Emoji;
+            line-height: 1.5;
+            color: rgba(28, 27, 27, 0.65);
+            font-size: 18px;
+            box-sizing: border-box;
+            padding: 8px !important;
+            overflow: hidden;
+            font-weight: 600;
+            text-decoration: none;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+            cursor: pointer;
+            vertical-align: middle;
+            text-align-all: center;
+            border-bottom-color: #e4e4e4;
+        }
+
+        li:hover {
+            background-color: darkblue;
+            color: white;
+        }
+
+        img {
+            width: 28px;
+            height: 28px;
+            vertical-align: middle;
+        }
+    </style>
+</head>
+
+<body>
+
+
+
+<ul class="autocomplete-results">
+    {% for profile in profiles %}
+        <li value="{{ profile.user.username }}" onclick="addUser('{{ profile.user.username }}')"><img src="{{ profile.avatar.url }}"
+                                                                              alt=""> {{ profile.user.first_name }}
+            @{{ profile.user.username }} </li>
+    {% empty %}
+        <li>No profile found</li>
+    {% endfor %}
+</ul>
+
+
+<script>
+    function addUser(adduser) {
+
+        // get the html table
+        // 0 = the first table
+        var table = document.getElementsByTagName('table')[0];
+
+        // add new empty row to the table
+        // 0 = in the top
+        // table.rows.length = the end
+        // table.rows.length/2+1 = the center
+        var newRow = table.insertRow(table.rows.length / 2 + 1);
+
+        // add cells to the row
+        var cel1 = newRow.insertCell(0);
+
+        // add values to the cells
+        cel1.innerHTML = '<tr><td value="adduser">'+adduser+'</td></tr>';
+
+    }
+
+
+</script>
+
+</body>
+</html>
