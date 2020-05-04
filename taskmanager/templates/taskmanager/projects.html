@@ -1,14 +1,30 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <title>Projects</title>
-</head>
+{% extends "base.html" %}
 
-<body>
-{% for project in projects %}
-    <h3 href="{{ project.id }}">{{ project.name }}</h3>
-{% empty %}
-    <h3>You have no projects</h3>
-{% endfor %}
-</body>
-</html>
+{% block title %}Projects{% endblock %}
+
+{% block body %}
+
+    <div class="row">
+        <div class="col-6">
+            <a style="font-size: 28px" href="/taskmanager/newproject" class="button7">New project +</a>
+            <table>
+                <tr>
+                    <th>
+                        Projects enrolled in
+                    </th>
+                </tr>
+
+                {% for project in projects %}
+
+                    <tr>
+                        <td><a href="/taskmanager/projects/{{ project.id }}">{{ project.name }}</a></td>
+                    </tr>
+
+                {% empty %}
+                    <h3>You have no projects</h3>
+                {% endfor %}
+
+            </table>
+        </div>
+    </div>
+{% endblock %}

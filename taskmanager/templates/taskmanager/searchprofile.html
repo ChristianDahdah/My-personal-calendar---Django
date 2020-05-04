@@ -6,7 +6,7 @@
         .autocomplete-results {
             position: absolute;
             z-index: 0;
-            width: 30%;
+            width: 70%;
             max-height: 10em;
             overflow-y: auto;
             font-size: 13px;
@@ -53,10 +53,10 @@
 
 
 <ul class="autocomplete-results">
-    {% for profile in profiles %}
-        <li value="{{ profile.user.username }}" onclick="addUser('{{ profile.user.username }}')"><img src="{{ profile.avatar.url }}"
-                                                                              alt=""> {{ profile.user.first_name }}
-            @{{ profile.user.username }} </li>
+    {% for prof in profiles %}
+        <li value="{{ prof.user.username }}" onclick="addUser('{{ prof.user.username }}')"><img src="{{ prof.avatar.url }}"
+                                                                              alt=""> {{ prof.user.first_name }}
+            @{{ prof.user.username }} </li>
     {% empty %}
         <li>No profile found</li>
     {% endfor %}

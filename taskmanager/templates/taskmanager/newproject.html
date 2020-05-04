@@ -1,29 +1,34 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>New project</title>
+{%extends "base.html" %}
+
+
+{% block title %}New project{% endblock %}
+
+{% block meta %}
     {% load static %}
     <script src="{% static "jquery-2.0.0.min.js" %}"></script>
     <script src="{% static "ajax.js" %}" %}></script>
-</head>
-<body>
-<h2>Trying the search thing</h2>
-<h3>Search</h3>
-<table>
-    <tr>
-        <th>
-            Added usernames
-        </th>
-    </tr>
-</table>
-{% csrf_token %}
-<input type="text" id="search" name="search" />
-<ul id="search-results">
-
-</ul>
-
-</body>
+{% endblock %}
 
 
-</html>
+{% block body %}
+
+    <div class="row">
+        <div class="col-4">
+            <h3>Search</h3>
+            {% csrf_token %}
+            <input type="text" id="search" name="search"/>
+            <ul id="search-results">
+            </ul>
+        </div>
+        <div col-6>
+            <table>
+                <tr>
+                    <th>
+                        Added usernames
+                    </th>
+                </tr>
+            </table>
+        </div>
+    </div>
+
+{% endblock %}

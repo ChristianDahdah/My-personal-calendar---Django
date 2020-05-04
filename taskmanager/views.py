@@ -22,9 +22,11 @@ def projects(request):
 def newproject(request):
     args = {}
     args.update(csrf(request))
-    return render(request, 'taskmanager/newproject.html',args)
+    profile = Profile.objects.get(user=request.user)
+    return render(request, 'taskmanager/newproject.html', locals())
 
 
+@login_required
 def searchprofile(request):
     print("I am in views.searchprofile")
     if request.method == "POST":
@@ -34,4 +36,4 @@ def searchprofile(request):
 
     profiles = Profile.objects.filter(user__username__contains=search_profile)
 
-    return render_to_response('taskmanager/searchprofile.html', {'profiles': profiles})
+    return render_to_response('taskmanager/searchprofile.html', locals())
