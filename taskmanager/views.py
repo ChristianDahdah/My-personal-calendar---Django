@@ -1,10 +1,11 @@
 from django.contrib.auth.decorators import login_required
+from django.http import Http404
 from django.shortcuts import render, redirect, render, get_object_or_404, render_to_response
 from django.contrib.auth import authenticate, login, logout
 from django.template.context_processors import csrf
 
 from taskmanager.forms import SearchProfileForm
-from taskmanager.models import Project
+from taskmanager.models import Project, Task, Journal
 from accounts.models import Profile
 
 
@@ -20,10 +21,10 @@ def projects(request):
 
 
 @login_required
-def newproject(request):
+def new_project(request):
     args = {}
     args.update(csrf(request))
-    #profle passed as a parameter to put profile picture and first name in the website's header
+    # profle passed as a parameter to put profile picture and first name in the website's header
     profile = Profile.objects.get(user=request.user)
     if request.method == "POST":
         form = SearchProfileForm(request.POST)
@@ -31,7 +32,6 @@ def newproject(request):
             print(form)
             projectname = form.cleaned_data["projectname"]
             users = form.cleaned_data["users"]
-
 
     return render(request, 'taskmanager/newproject.html', locals())
 
@@ -47,3 +47,47 @@ def search_profile(request):
 
     return render_to_response('taskmanager/searchprofile.html', locals())
 
+
+@login_required
+def view_project(request, id):
+    # Needed to load avatar in upper page
+    profile = Profile.objects.get(user=request.user)
+
+    # Checking if the project with the requested id exists
+    try:
+        project = Project.objects.get(id=id)
+        tasks = Task.objects.filter(project__id=id)
+    except Project.DoesNotExist:
+        raise Http404
+
+    return render(request, 'taskmanager/view_project.html', locals())
+
+
+
+@login_required
+def task(request, id):
+    # Needed to load avatar in upper page
+    profile = Profile.objects.get(user=request.user)
+
+    try:
+        task = Task.objects.get(id=id)
+        journals = Journal.objects.filter(task__id=id)
+    except Project.DoesNotExist:
+        raise Http404
+
+
+    return render(request, 'taskmanager/task.html', locals())
+
+
+@login_required
+def new_task(request):
+    # Needed to load avatar in upper page
+    profile = Profile.objects.get(user=request.user)
+
+    # Checking if the project with the current id exists
+    try:
+        project = Project.objects.get(id=id)
+    except Project.DoesNotExist:
+        raise Http404
+
+    return render(request, 'taskmanager/new_task.html', locals())

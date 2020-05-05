@@ -13,4 +13,4 @@ class Profile(models.Model):
 
     def __str__(self):
         # Should put first_name field mandatory
-        return "Profile de {0}".format(self.user.first_name)
+        return "{} {}".format(self.user.first_name, self.user.last_name)

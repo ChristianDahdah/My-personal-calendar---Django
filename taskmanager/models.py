@@ -39,3 +39,6 @@ class Journal(models.Model):
 
     def __str__(self):
         return "Journal fait par {} pour la tâche '{}'".format(self.author, self.task.name)
+
+    class Meta:
+        ordering = ['-date']

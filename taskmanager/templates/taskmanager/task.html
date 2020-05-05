@@ -1,0 +1,81 @@
+{% extends "base.html" %}
+
+{% block title %} Task {% endblock %}
+
+{% block body %}
+
+    <div class="container-fluid p-3 my-3 bg-primary text-blue">
+        <div class="row">
+            <h4 style="color: white"> Project / {{ task.project.name }} / {{ task.name }}</h4>
+        </div>
+    </div>
+
+
+
+    <table class="table table-hover">
+        <thead>
+
+        <tr>
+            <th style="width:40%">Assignee</th>
+            <td style="width:60%"><img src="{{ task.assignee.avatar.url }}" alt=""> <kbd
+                    style="background-color: #0275d8">{{ task.assignee }}</kbd></td>
+            <td><a href="/taskmanager/edittask/{{ task.id }}"><img src="/media/edit.png" alt=""></a></td>
+        </tr>
+
+
+        <tr>
+            <th>Start date</th>
+            <td>{{ task.start_date }}</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <th>Due date</th>
+            <td>{{ task.due_date }}</td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <th>Status</th>
+            <td><kbd style="background-color: #93931c">{{ task.status }}</kbd></td>
+            <td></td>
+        </tr>
+
+        <tr>
+            <td></td>
+            <td></td>
+            <td></td>
+        </tr>
+
+        </thead>
+    </table>
+
+
+    <table class="table table-hover">
+        <thead class="thead-dark">
+        <tr>
+            <th style="width:17%; font-size: 24px">Comment history</th>
+            <th style="width:13%"></th>
+            <th style="width:70%"></th>
+            <th><img src="/media/plus.png" alt="+" style="width: 36px; height: 36px"></th>
+        </tr>
+
+        {% for journal in journals %}
+
+            <tr>
+                <td><img src="{{ journal.author.avatar.url }}" alt=""> <kbd
+                        style="background-color: #0275d8">{{ journal.author }}</kbd></td>
+                <td>{{ journal.date }}</td>
+                <td>{{ journal.entry }}</td>
+
+            </tr>
+
+
+        {% empty %}
+            <h3>You have no comments</h3>
+        {% endfor %}
+        </thead>
+    </table>
+
+
+{% endblock %}
