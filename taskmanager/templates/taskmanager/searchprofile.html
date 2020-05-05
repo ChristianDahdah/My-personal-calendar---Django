@@ -51,11 +51,12 @@
 <body>
 
 
-
+{# This handles to put found usernames in an unordered list #}
 <ul class="autocomplete-results">
     {% for prof in profiles %}
-        <li value="{{ prof.user.username }}" onclick="addUser('{{ prof.user.username }}')"><img src="{{ prof.avatar.url }}"
-                                                                              alt=""> {{ prof.user.first_name }}
+        <li value="{{ prof.user.username }}" onclick="addUser('{{ prof.user.username }}')"><img
+                src="{{ prof.avatar.url }}"
+                alt=""> {{ prof.user.first_name }}
             @{{ prof.user.username }} </li>
     {% empty %}
         <li>No profile found</li>
@@ -64,24 +65,36 @@
 
 
 <script>
+
+    {# This script handles putting clicked users in "Added username table" #}
+    var array = ["{{ request.user.username }}"]
+
     function addUser(adduser) {
 
-        // get the html table
+        // Checking if the user is already added, if he is an alert will show
+        if (array.includes(adduser)) {
+            alert("User @" + adduser + " already added")
+
+        } else {
+
+         // get the html table
         // 0 = the first table
-        var table = document.getElementsByTagName('table')[0];
+            var table = document.getElementsByTagName('table')[0];
 
-        // add new empty row to the table
-        // 0 = in the top
-        // table.rows.length = the end
-        // table.rows.length/2+1 = the center
-        var newRow = table.insertRow(table.rows.length / 2 + 1);
+            // add new empty row to the table
+            // 0 = in the top
+            // table.rows.length = the end
+            // table.rows.length/2+1 = the center
+            var newRow = table.insertRow(table.rows.length);
 
-        // add cells to the row
-        var cel1 = newRow.insertCell(0);
+            // add cells to the row
+            var cel1 = newRow.insertCell(0);
 
-        // add values to the cells
-        cel1.innerHTML = '<tr><td value="adduser">'+adduser+'</td></tr>';
+            array.push(adduser)
 
+            // add values to the cells and to the input field
+            cel1.innerHTML = '<tr><td value="adduser">' + adduser + '</td></tr><input type="hidden" name="users" value=' + adduser + '>';
+        }
     }
 
 

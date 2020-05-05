@@ -1,4 +1,4 @@
-{%extends "base.html" %}
+{% extends "base.html" %}
 
 
 {% block title %}New project{% endblock %}
@@ -11,24 +11,40 @@
 
 
 {% block body %}
-
+<div class="container-fluid">
     <div class="row">
         <div class="col-4">
-            <h3>Search</h3>
+            <h3>Search and click to add a user</h3>
             {% csrf_token %}
             <input type="text" id="search" name="search"/>
             <ul id="search-results">
             </ul>
         </div>
-        <div col-6>
-            <table>
-                <tr>
-                    <th>
-                        Added usernames
-                    </th>
-                </tr>
-            </table>
+        <div class="col-3">
+            <form action="newproject" method="POST">
+                {% csrf_token %}
+                <h4>Projet name:</h4>
+                <input type="text" name="projectname" id="projectname">
+                <br>
+                <input type="submit" value="Create project">
+                <br>
+                <br>
+        <table class="table table-hover">
+        <thead class="thead-dark">
+                    <tr>
+                        <th>
+                            Added usernames
+                        </th>
+                    </tr>
+                    <tr>
+                        <tr><td>{{ request.user.username }} (Me)</td></tr>
+                        <input type="hidden" name="users" value="{{ request.user.username }}">
+                    </tr>
+        </thead>
+                </table>
+            </form>
         </div>
+    </div>
     </div>
 
 {% endblock %}

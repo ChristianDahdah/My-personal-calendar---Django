@@ -3,28 +3,32 @@
 {% block title %}Projects{% endblock %}
 
 {% block body %}
-
+    <div class="container-fluid">
     <div class="row">
-        <div class="col-6">
-            <a style="font-size: 28px" href="/taskmanager/newproject" class="button7">New project +</a>
-            <table>
+    <div class="col-6">
+        <a style="font-size: 28px" href="/taskmanager/newproject" class="button7">New project +</a>
+<br><br>
+
+        <table class="table table-hover">
+        <thead class="thead-dark">
+            <tr>
+                <th>
+                    Projects enrolled in
+                </th>
+            </tr>
+
+            {% for project in projects %}
+
                 <tr>
-                    <th>
-                        Projects enrolled in
-                    </th>
+                    <td><a href="/taskmanager/projects/{{ project.id }}">{{ project.name }}</a></td>
                 </tr>
 
-                {% for project in projects %}
-
-                    <tr>
-                        <td><a href="/taskmanager/projects/{{ project.id }}">{{ project.name }}</a></td>
-                    </tr>
-
-                {% empty %}
-                    <h3>You have no projects</h3>
-                {% endfor %}
-
-            </table>
-        </div>
+            {% empty %}
+                <h3>You have no projects</h3>
+            {% endfor %}
+        </thead>
+        </table>
+    </div>
+    </div>
     </div>
 {% endblock %}

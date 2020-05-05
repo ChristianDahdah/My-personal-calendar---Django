@@ -1,9 +1,8 @@
-<!DOCTYPE html>
-<html lang="fr">
-<head>
-    <title>Signup page</title>
-</head>
-<body>
+{% extends "base.html" %}
+{% block title %}Signup page{% endblock %}
+
+
+{% block body %}
 
 {% if envoi %} Votre message a bien été envoyé {% endif %}
 
@@ -13,6 +12,4 @@
     <input type="submit" value="Créer mon compte"/>
 </form>
 
-
-</body>
-</html>
+{% endblock %}

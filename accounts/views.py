@@ -1,3 +1,4 @@
+from django.contrib.auth import logout
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.models import User
 from django.shortcuts import render
@@ -14,6 +15,10 @@ def profile(request):
 
 
 def signup(request):
+
+    # logging our user to create another one
+    logout(request)
+
     # Getting Post HTTP request
     form = ProfileForm(request.POST or None, request.FILES)
 

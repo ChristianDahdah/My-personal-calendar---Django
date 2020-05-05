@@ -3,6 +3,7 @@ from django.shortcuts import render, redirect, render, get_object_or_404, render
 from django.contrib.auth import authenticate, login, logout
 from django.template.context_processors import csrf
 
+from taskmanager.forms import SearchProfileForm
 from taskmanager.models import Project
 from accounts.models import Profile
 
@@ -22,13 +23,21 @@ def projects(request):
 def newproject(request):
     args = {}
     args.update(csrf(request))
+    #profle passed as a parameter to put profile picture and first name in the website's header
     profile = Profile.objects.get(user=request.user)
+    if request.method == "POST":
+        form = SearchProfileForm(request.POST)
+        if form.is_valid():
+            print(form)
+            projectname = form.cleaned_data["projectname"]
+            users = form.cleaned_data["users"]
+
+
     return render(request, 'taskmanager/newproject.html', locals())
 
 
 @login_required
 def searchprofile(request):
-    print("I am in views.searchprofile")
     if request.method == "POST":
         search_profile = request.POST['search_profile']
     else:
