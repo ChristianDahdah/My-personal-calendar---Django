@@ -3,9 +3,7 @@ from django import forms
 
 class ProfileForm(forms.Form):
     first_name = forms.CharField(label="Prénom", max_length=60, required=True)
-    # Last_name isn't required
-    last_name = forms.CharField(label="Nom", max_length=60, required=False)
-
+    last_name = forms.CharField(label="Nom", max_length=60, required=True)
     # username, password AND email are required to successfully create a user from User model
     # A first name field was also added just to say Welcome "First name" in login page
     username = forms.CharField(label="Nom d'utilisateur", max_length=80, required=True)

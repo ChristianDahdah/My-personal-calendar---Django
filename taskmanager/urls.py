@@ -4,5 +4,5 @@ from taskmanager import views
 urlpatterns = [
     path('projects', views.projects),
     path('newproject', views.newproject),
-    path('searchprofile', views.searchprofile),
+    path('searchprofile', views.search_profile),
 ]

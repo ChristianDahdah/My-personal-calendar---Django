@@ -37,7 +37,7 @@ def newproject(request):
 
 
 @login_required
-def searchprofile(request):
+def search_profile(request):
     if request.method == "POST":
         search_profile = request.POST['search_profile']
     else:
@@ -46,3 +46,4 @@ def searchprofile(request):
     profiles = Profile.objects.filter(user__username__contains=search_profile)
 
     return render_to_response('taskmanager/searchprofile.html', locals())
+
