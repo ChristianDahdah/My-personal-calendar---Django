@@ -15,6 +15,9 @@ urlpatterns = [
     # <int:id> is the project id
     path('newtask/<int:id>', views.newtask),
 
-    path('searchassignee', views.searchassignee)
+    # this path is used to search for users when creating/editing a task
+    path('searchassignee', views.searchassignee),
 
+    # <int:id> is the task id
+    path('edittask/<int:id>', views.edittask),
 ]

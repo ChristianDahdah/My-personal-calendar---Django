@@ -88,14 +88,10 @@ def newtask(request, id):
         raise Http404
 
     if request.method == "POST":
-        print(request.POST)
         form = TaskForm(request.POST)
-        print(form)
 
         if form.is_valid():
-            # getting cleaned data
-            print("THE FORM IS VALID")
-
+            # Cleaning data
             project_id = form.cleaned_data['project_id']
             name = form.cleaned_data['name']
             description = form.cleaned_data['description']
@@ -105,7 +101,7 @@ def newtask(request, id):
             priority = form.cleaned_data['priority']
             status = form.cleaned_data['status']
 
-            # injecting data
+            # Injecting data
             task = Task()
             task.project = Project.objects.get(id=id)
             task.name = name
@@ -116,16 +112,16 @@ def newtask(request, id):
             task.priority = priority
             task.status = Status.objects.get(name=status)
 
-            # Saving info
+            # Saving info to database
             task.save()
 
-            return redirect('/taskmanager/task/'+str(task.id))
+            return redirect('/taskmanager/task/' + str(task.id))
 
     return render(request, 'taskmanager/newtask.html', locals())
 
 
-
 @login_required
+# This function is used in editing or creating a new task to search for a user
 def searchassignee(request):
     if request.method == "POST":
         search_assignee = request.POST['search_assignee']
@@ -135,3 +131,46 @@ def searchassignee(request):
     profiles = Profile.objects.filter(user__username__contains=search_assignee)
 
     return render_to_response('taskmanager/searchassignee.html', locals())
+
+
+@login_required
+def edittask(request, id):
+    # Needed to load avatar in upper page
+    profile = Profile.objects.get(user=request.user)
+
+    # Checking if the task with the current id exists
+    try:
+        task = Task.objects.get(id=id)
+    except Project.DoesNotExist:
+        raise Http404
+
+    if request.method == "POST":
+        form = TaskForm(request.POST)
+
+        if form.is_valid():
+            # Cleaning data
+            project_id = form.cleaned_data['project_id']
+            name = form.cleaned_data['name']
+            description = form.cleaned_data['description']
+            assignee_name = form.cleaned_data['assignee_name']
+            start_date = form.cleaned_data['start_date']
+            due_date = form.cleaned_data['due_date']
+            priority = form.cleaned_data['priority']
+            status = form.cleaned_data['status']
+
+            # Injecting data
+            task.project = Project.objects.get(id=id)
+            task.name = name
+            task.description = description
+            task.assignee = Profile.objects.get(user__username=assignee_name)
+            task.start_date = start_date
+            task.due_date = due_date
+            task.priority = priority
+            task.status = Status.objects.get(name=status)
+
+            # Saving info to database
+            task.save()
+
+            return redirect('/taskmanager/task/' + str(task.id), locals())
+
+    return render(request, 'taskmanager/edittask.html', locals())
