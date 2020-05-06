@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+
+{% block title %} New task {% endblock %}
+
+{% block meta %}
+    {% load static %}
+    <script src="{% static "jquery-2.0.0.min.js" %}"></script>
+    <script src="{% static "searchassignee.js" %}"></script>
+{% endblock %}
+
+{% block body %}
+    <br>
+
+    <div class="container-fluid">
+
+        <form action="/taskmanager/newtask/{{ project.id }}" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="Create new task" class="btn btn-primary">
+            <br>
+            <br>
+            <input type="hidden" value="{{ project.id }}" name="project_id">
+
+
+            <div class="col-6">
+                <nav class="navbar navbar-expand-sm bg-dark navbar-dark">
+                        <div class="input-group">
+                            <div class="input-group-prepend">
+                                <span class="input-group-text">@</span>
+                            </div>
+
+                            <input type="text" id="assignee_name" name="assignee_name"
+                                   placeholder="Assignee name"/>
+                        </div>
+                </nav>
+
+                <ul id="search-results">
+                </ul>
+
+
+            </div>
+
+            <div class="col-6">
+
+                <div class="form-group">
+                    <input type="text" class="form-control" name="name" placeholder="Task name">
+                </div>
+
+                <div class="form-group">
+                    <div class='input-group date' id='start_date' name="start_date">
+                        <input type='date' class="form-control" placeholder="Start date" name="start_date"/>
+                    </div>
+                </div>
+
+
+                <div class="form-group">
+                    <div class='input-group datetime' id='due_date' name="due_date">
+                        <input type='date' class="form-control" placeholder="Due date" name="due_date"/>
+                    </div>
+                </div>
+
+
+                <label for="priority">Priority: </label>
+                <input type="number" id="priority" name="priority" placeholder="Priority">
+
+                <br>
+                <br>
+
+                <label for="status">Choose a status: </label>
+                <select id="status" name="status">
+                    <option value="Nouvelle">Nouvelle</option>
+                    <option value="En cours">En cours</option>
+                    <option value="En attente">En attente</option>
+                    <option value="Terminée">Terminée</option>
+                    <option value="Classée">Classée</option>
+                </select>
+
+                <br>
+                <br>
+
+                <div class="form-group">
+                    <label for="comment">Comment:</label>
+                    <textarea class="form-control" rows="4" id="comment" name="description"
+                              placeholder="Description"></textarea>
+                </div>
+
+
+            </div>
+        </form>
+
+
+    </div>
+
+
+
+{% endblock %}

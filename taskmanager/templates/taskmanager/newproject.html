@@ -6,13 +6,16 @@
 {% block meta %}
     {% load static %}
     <script src="{% static "jquery-2.0.0.min.js" %}"></script>
-    <script src="{% static "ajax.js" %}" %}></script>
+    <script src="{% static "searchprofile.js" %}" %}></script>
 {% endblock %}
 
 
 {% block body %}
-<div class="container-fluid">
+
+    <br>
+    <div class="container-fluid">
     <div class="row">
+
         <div class="col-4">
             <h3>Search and click to add a user</h3>
             {% csrf_token %}
@@ -20,6 +23,8 @@
             <ul id="search-results">
             </ul>
         </div>
+
+
         <div class="col-3">
             <form action="newproject" method="POST">
                 {% csrf_token %}

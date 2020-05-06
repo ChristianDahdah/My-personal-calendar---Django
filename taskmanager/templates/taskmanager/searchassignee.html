@@ -1,0 +1,57 @@
+<html>
+
+<head>
+    <style>
+
+        .autocomplete-results {
+            position: absolute;
+            z-index: 0;
+            width: 70%;
+            max-height: 10em;
+            overflow-y: auto;
+            font-size: 13px;
+            list-style: none;
+            background: #ffffff;
+            border-radius: 3px;
+            box-shadow: 0 0 5px rgba(27, 31, 35, .3);
+        }
+
+        img {
+            width: 28px;
+            height: 28px;
+            vertical-align: middle;
+        }
+
+
+    </style>
+</head>
+
+<body>
+
+
+{# This handles to put found usernames in an unordered list #}
+
+
+          {% for prof in profiles %}
+        <li value="{{ prof.user.username }}" onclick="addUser('{{ prof.user.username }}')"><img
+                src="{{ prof.avatar.url }}"
+                alt="">
+            @{{ prof.user.username }} ({{ prof }}) </li>
+    {% empty %}
+        <li>No profile found</li>
+    {% endfor %}
+
+
+
+<script>
+
+    function addUser(adduser) {
+        // add values to the element and to the input field
+        var cell = document.getElementById('assignee_name')
+        cell.value = adduser;
+    }
+
+</script>
+
+</body>
+</html>

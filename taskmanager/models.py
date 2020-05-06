@@ -22,8 +22,8 @@ class Task(models.Model):
     name = models.CharField(max_length=80)
     description = models.CharField(max_length=256)
     assignee = models.ForeignKey('accounts.Profile', on_delete=models.CASCADE, related_name='task_assignee')
-    start_date = models.DateTimeField(default=timezone.now)
-    due_date = models.DateTimeField(default=timezone.now)
+    start_date = models.DateField(default=timezone.now)
+    due_date = models.DateField(default=timezone.now)
     priority = models.PositiveSmallIntegerField(default=0)
     status = models.ForeignKey("Status", on_delete=models.SET_NULL, null=True)
 
