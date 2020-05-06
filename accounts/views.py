@@ -7,6 +7,7 @@ from accounts.models import Profile
 
 
 @login_required
+# this function renders the profile page of a connected user
 def profile(request):
     profile = Profile.objects.get(user=request.user)
     print(profile)

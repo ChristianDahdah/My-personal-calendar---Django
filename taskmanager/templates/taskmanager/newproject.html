@@ -16,16 +16,22 @@
     <div class="container-fluid">
     <div class="row">
 
+        {# displaying the search bar to find users and assign them #}
         <div class="col-4">
             <h3>Search and click to add a user</h3>
             {% csrf_token %}
             <input type="text" id="search" name="search"/>
+
+            {# this displays "searchprofile.html" which displays found usernames #}
             <ul id="search-results">
             </ul>
         </div>
 
 
+
         <div class="col-3">
+
+            {# This displays the form (usernames added and project name #}
             <form action="newproject" method="POST">
                 {% csrf_token %}
                 <h4>Projet name:</h4>

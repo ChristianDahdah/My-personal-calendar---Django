@@ -21,21 +21,28 @@ def projects(request):
 
 
 @login_required
+# This function is not finished
 def newproject(request):
     args = {}
     args.update(csrf(request))
-    # profle passed as a parameter to put profile picture and first name in the website's header
+    # profile passed as a parameter to put profile picture and first name in the website's header
     profile = Profile.objects.get(user=request.user)
+
     if request.method == "POST":
         form = SearchProfileForm(request.POST)
         if form.is_valid():
+            # Creating and saving profile
+            # Cleaning method must be changed because cannot clean an array of strings properly
             projectname = form.cleaned_data["projectname"]
             users = form.cleaned_data["users"]
+
+            # This function is now finished, still needs to create a project object and save the data
 
     return render(request, 'taskmanager/newproject.html', locals())
 
 
 @login_required
+# This function is used when adding profiles in New project view
 def searchprofile(request):
     if request.method == "POST":
         search_profile = request.POST['search_profile']
@@ -59,7 +66,7 @@ def viewproject(request, id):
     except Project.DoesNotExist:
         raise Http404
 
-    return render(request, 'taskmanager/view_project.html', locals())
+    return render(request, 'taskmanager/viewproject.html', locals())
 
 
 @login_required
@@ -67,6 +74,7 @@ def task(request, id):
     # Needed to load avatar in upper page
     profile = Profile.objects.get(user=request.user)
 
+    # Checking if searched task is available in the database
     try:
         task = Task.objects.get(id=id)
         journals = Journal.objects.filter(task__id=id)

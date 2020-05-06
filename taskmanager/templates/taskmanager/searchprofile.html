@@ -51,7 +51,7 @@
 <body>
 
 
-{# This handles to put found usernames in an unordered list #}
+{# This block puts found usernames in an unordered list #}
 <ul class="autocomplete-results">
     {% for prof in profiles %}
         <li value="{{ prof.user.username }}" onclick="addUser('{{ prof.user.username }}')"><img
